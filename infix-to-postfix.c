@@ -25,7 +25,7 @@ void clearString(char string[]){
 }
 
 char * InfixToPostfix (String expression, String output) {
-	Node* pTop = Initialize(); //initialize top
+	OptNode* pTop = InitializeOpt(); //initialize top
 	String number = {};
 	char Operator[3];
 	
@@ -41,15 +41,12 @@ char * InfixToPostfix (String expression, String output) {
 			}
 			number[j] = '\0';
 			//2. if token is operand, goes to output
-			//printf("number: %s\n", number);
 			strcat(output, number);
 			strcat(output, " ");
-			//printf("output: %s\n", output);
 			clearString(number);
 			j = 0;
 		}
 		else {
-		//	printf("Operator: %c\n", expression[i]);
 			if(expression[i] != ')')
 			{
 				Operator[0] = expression[i];
@@ -84,24 +81,21 @@ char * InfixToPostfix (String expression, String output) {
 				//  b. else, pop top of stack. go back to step 3a.
 				do {
 					ICP = getPriority(Operator, 1);
-					if(isEmpty(pTop))
+					if(OptisEmpty(pTop))
 						ISP = 0;
 					else
 						ISP = getPriority(pTop->Operator, 0);
-					//printf("ICP = %d	ISP = %d\n", ICP, ISP);
-					
+						
 					if(ICP > ISP){
-						Push(&pTop, Operator);
+						PushOperator(&pTop, Operator);
 						clearString(Operator);	
 					}
 					else {
 						strcat(output, pTop->Operator);
 						strcat(output, " ");
-						Pop(&pTop);
+						PopOperator(&pTop);
 					}
-				//	Top(pTop);
 				} while(ICP <= ISP);
-			//	printf("output: %s\n", output);
 			}
 			//4. If token is ')'
 			//	a. pop top of stack
@@ -111,26 +105,19 @@ char * InfixToPostfix (String expression, String output) {
 				do {
 					strcat(output, pTop->Operator);
 					strcat(output, " ");
-					Pop(&pTop);
-			//		Top(pTop);
+					PopOperator(&pTop);
 				} while(strcmp(pTop->Operator, "(") != 0);
-				Pop(&pTop);
-			//	Top(pTop);
-			//	printf("output: %s\n", output);
+				PopOperator(&pTop);
 			}
 			i++;
-			//printf("\n");
 		}
 	}
-	//5. if no more tokens, pop all elements (WORK IN PROGRESS)
-	while(!isEmpty(pTop)) {
+	//5. if no more tokens, pop all elements
+	while(!OptisEmpty(pTop)) {
 		strcat(output, pTop->Operator);
 		strcat(output, " ");
-		Pop(&pTop);
-	//	Top(pTop);
+		PopOperator(&pTop);
 	}
-	
-//	printf("output: %s\n", output);
 	return output;
 
 }
