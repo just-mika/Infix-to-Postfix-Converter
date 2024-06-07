@@ -98,9 +98,9 @@ void printQueue() {
 	while(temp != NULL) {
         //check if operator and operand
 		if(temp->dataType == OPERATOR){
-            printf("%s", temp->operator);
+            printf("%s ", temp->operator);
         }else{
-            printf("%d", temp->operand);
+            printf("%d ", temp->operand);
         }
 		temp = temp->next;  
 	}
