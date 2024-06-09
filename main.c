@@ -1,23 +1,22 @@
 #include <stdio.h>
 #include <string.h>
 #include "infix-to-postfix.c"
-//include evaluate.c here
+//#include "evaluate-postfix.c"
 
 
 int main() {
-	String expression;
-	String PostFix = {};
+	String input;
 	
 	do
 	{
-		scanf("%255s", expression);
+		scanf("%255s", input);
 	
-		if(strcmp(expression, "QUIT") != 0){
-				printf("%s\n", InfixToPostfix(expression, PostFix)); //postfix
-			printf("\n"); //place evaluation here
-			clearString(PostFix); //clear output string each iteration!
+		if(strcmp(input, "QUIT") != 0){
+			InfixToPostfix(input);
+			printQueue(); //Print postfix
 		}
-	} while(strcmp(expression, "QUIT") != 0);
+
+	} while(strcmp(input, "QUIT") != 0);
 
 	return 0;
 }
