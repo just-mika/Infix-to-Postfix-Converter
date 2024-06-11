@@ -18,7 +18,7 @@ int OptisEmpty(OptNode* pTop){
 		return 0;
 }
 
-/*@param *pTop - pointer to the top of the stack
+/*
 	prints the operator contained at the top (use for debug)
 	@@param *pTop - address of the top of the stack
 */
