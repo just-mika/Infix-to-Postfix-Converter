@@ -73,11 +73,9 @@ int OprisEmpty(OprNode* pTop){
 	prints the operand contained at the top (use for debug)
 	@param *pTop - pointer to the top of the stack	
 */
-OprNode* OprTop(OprNode* pTop){
+int OprTop(OprNode* pTop){
 	if(!OprisEmpty(pTop)){ //if list isnt empty, print the top operator
-		return pTop;
-	}
-	return NULL;
+		return pTop->operand;
 }
 
 /*
