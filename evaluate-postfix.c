@@ -68,10 +68,11 @@ int solve(char opt[], int opr1, int opr2){
     }
 }
 
-int evaluatePostFix(PostFixQ* pFront){
+void evaluatePostFix(PostFixQ* pFront){
     OprNode* pTop = InitializeOpr();
     int opr1, opr2, result;
     int finalResult;
+    int isValid = 1; //remains one if there is no division by zero
     while(!QisEmpty(pFront)){
         result = 0;
         opr1 = 0;
@@ -79,6 +80,7 @@ int evaluatePostFix(PostFixQ* pFront){
         if(pFront->dataType == OPERAND){
             PushOperand(&pTop, pFront->operand);
         }else{
+            //for unary operators, specifically NOT, pop once
             if(strcmp(pFront->operator, "!") ==0){
                 opr1 = OprTop(pTop);
                 result = !opr1; //evaluates pTop
@@ -86,14 +88,16 @@ int evaluatePostFix(PostFixQ* pFront){
                 PushOperand(&pTop, result);
             }
             else{
+                //other operators, pop twice
                 opr2 = OprTop(pTop);
                 PopOperand(&pTop);
                 opr1 = OprTop(pTop);
                 PopOperand(&pTop);
+                //checks if there is division of 0
                 if(strcmp(pFront->operator,"/") == 0){
                     if(opr2 == 0){
-                        printf("Division by zero error!");
-                        return 0;
+                        printf("Division by zero error!\n");
+                        return;
                     }
                 }
                 result = solve(pFront->operator, opr1, opr2);
@@ -102,6 +106,8 @@ int evaluatePostFix(PostFixQ* pFront){
         }
         deQueue(&pFront);
     }
-    finalResult = OprTop(pTop);
-    return finalResult;
+    if(isValid == 1){ //for valid equations -- equations without division of 0
+        finalResult = OprTop(pTop);
+        printf("%d\n", finalResult);
+    }
 }
