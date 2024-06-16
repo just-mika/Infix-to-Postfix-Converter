@@ -20,6 +20,6 @@ typedef struct OperandNodeTag
 
 OprNode* InitializeOpr();
 int OprisEmpty(OprNode* pTop);
-int OprTop(OprNode* pTop);
+OprNode* OprTop(OprNode* pTop);
 void PushOperand(OprNode** pTop, int data);
 void PopOperand(OprNode** pTop);
