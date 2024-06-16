@@ -4,6 +4,12 @@
 #include "header.h"
 #include <math.h>
 
+/*
+    @param opt[]    - operator that will determine the type of operation to solve
+    @param opr1    - left-hand operand or base
+    @param opr2    - right-hand operand, or exponent
+    @return results depending on the operation made
+*/
 int solve(char opt[], int opr1, int opr2){
     switch(opt[0]){
         //arithmetic
@@ -66,8 +72,12 @@ int solve(char opt[], int opr1, int opr2){
             }
             return 0;
     }
+    return 0;
 }
 
+/*
+    @param *pFront - queue to be evaluated
+*/
 void evaluatePostFix(PostFixQ* pFront){
     OprNode* pTop = InitializeOpr();
     int opr1, opr2, result;
