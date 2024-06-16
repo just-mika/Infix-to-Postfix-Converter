@@ -1,6 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef QUEUE_H
+#define QUEUE_H
 
 #define OPERAND 1
 #define OPERATOR 2
@@ -13,9 +12,11 @@ typedef struct QueueTag{
     struct QueueTag *next;
 } PostFixQ;
 
-//PostFixQ* initializeQueue();
-int QisEmpty(PostFixQ* pFront, PostFixQ* pRear);
-void enQueueOperand(int x);
-void enQueueOperator(char x[]);
-void deQueue();
-void printQueue();
+PostFixQ* initializeQueue();
+int QisEmpty(PostFixQ* pFront);
+void enQueueOperand(PostFixQ** pFront, PostFixQ** pRear, int opr);
+void enQueueOperator(PostFixQ** pFront, PostFixQ** pRear, char opt[]);
+void deQueue(PostFixQ** pFront);
+void printQueue(PostFixQ* pFront);
+
+#endif
