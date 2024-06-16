@@ -129,7 +129,7 @@ void InfixToPostfix (String expression) {
 	(			11		0
 	!			10		9
 	^			8		7
-	*, /		6		6
+	*, /, %		6		6
 	+, -		5		5
 	>,>=,<,<=	4		4
 	==,!=		3		3
@@ -163,9 +163,10 @@ int getPriority(char Operator[3], int mode){
 				return 8;
 			else //for ISP, ISP = 7
 				return 7;
-		//for '*' and '/', priority is 6
+		//for '*', '/', and '%', priority is 6
 		case '*':
 		case '/':
+		case '%':
 			return 6;
 		//for '+' and '-', priority is 5
 		case '+':
