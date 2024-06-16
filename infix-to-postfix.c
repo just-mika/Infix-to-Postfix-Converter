@@ -23,10 +23,12 @@ void clearString(char string[]){
 	converts a given infix expression to its equivalent postfix expresson
 	@param expression - String that contains the inputted infix expression
 */
-void InfixToPostfix (String expression) {
+PostFixQ* InfixToPostfix (String expression) {
 	OptNode* pTop = InitializeOpt(); //initialize top
 	String number = {}; //declare a variable for the read opperands
 	char Operator[3]; //declare a variable for the read operators
+	PostFixQ* pFront = initializeQueue(); //declare a variable for head node
+	PostFixQ* pRear = initializeQueue(); //declare a variable for tail node used in dequeue
 	
 	int i = 0, j = 0, ISP, ICP; //declare variable for indices i(for expression) and j(for number string), and for the incoming priority(ICP) and in-stack priority(ISP)
 	
@@ -43,7 +45,7 @@ void InfixToPostfix (String expression) {
 			}
 			number[j] = '\0'; //after the loop, terminate the string
 			//2. if token is operand, goes to output
-			enQueueOperand(atoi(number)); //use atoi to convert the number in the string to an integer, and enqueue it in the queue.
+			enQueueOperand(&pFront, &pRear, atoi(number)); //use atoi to convert the number in the string to an integer, and enqueue it in the queue.
 			clearString(number); //clear the number string
 			j = 0; //reset the number string index count
 		}
@@ -98,7 +100,7 @@ void InfixToPostfix (String expression) {
 						clearString(Operator); //after pushing, clear the operator string,
 					}//  b. else, pop top of stack. go back to step 3a.
 					else {
-						enQueueOperator(pTop->Operator); //place the operator in the queue
+						enQueueOperator(&pFront, &pRear, pTop->Operator); //place the operator in the rear
 						PopOperator(&pTop); //pop the top of the stack
 					}
 				} while(ICP <= ISP); //loop until ICP is greater than ISP
@@ -106,7 +108,7 @@ void InfixToPostfix (String expression) {
 			//4. If token is ')'
 			else {
 				do {
-					enQueueOperator(pTop->Operator); //place the operator in the queue
+					enQueueOperator(&pFront, &pRear, pTop->Operator); //place the operator in the queue
 					PopOperator(&pTop); //	a. pop top of stack
 				//	b. if current top is not correspoding '(', pop operator to output. go back to 4a.
 				} while(strcmp(pTop->Operator, "(") != 0);  //loop until the top node contains '('
@@ -119,9 +121,10 @@ void InfixToPostfix (String expression) {
 	//5. if no more tokens, pop all elements
 	//execute this until the stack is empty 
 	while(!OptisEmpty(pTop)) {
-		enQueueOperator(pTop->Operator); //enqueue all elements in the stack
+		enQueueOperator(&pFront, &pRear, pTop->Operator); //enqueue all elements in the stack
 		PopOperator(&pTop); //pop all elements in the stack
 	}
+	return pFront; //returns the postfix expression
 }
 
 	/*
