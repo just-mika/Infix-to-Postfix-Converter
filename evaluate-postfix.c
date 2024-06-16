@@ -5,6 +5,7 @@
 #include <math.h>
 
 /*
+    evaluates the operation based on given operator and returns result
     @param opt[]    - operator that will determine the type of operation to solve
     @param opr1    - left-hand operand or base
     @param opr2    - right-hand operand, or exponent
@@ -76,6 +77,7 @@ int solve(char opt[], int opr1, int opr2){
 }
 
 /*
+    evaluate postfix until queue is empty, then prints the result or the error message in cases of division by zero
     @param *pFront - queue to be evaluated
 */
 void evaluatePostFix(PostFixQ* pFront){
