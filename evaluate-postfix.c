@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "stack.h"
 #include "queue.h"
 #include "header.h"
 #include <math.h>
