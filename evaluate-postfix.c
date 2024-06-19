@@ -105,7 +105,7 @@ void evaluatePostFix(PostFixQ* pFront){
                 opr1 = OprTop(pTop);
                 PopOperand(&pTop);
                 //checks if there is division of 0
-                if(strcmp(pFront->operator,"/") == 0){
+                if(strcmp(pFront->operator,"/") == 0 || strcmp(pFront->operator,"%") == 0){
                     if(opr2 == 0){
                         printf("Division by zero error!\n");
                         return;
