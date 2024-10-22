@@ -22,7 +22,7 @@ int solve(char opt[], int opr1, int opr2){
         case '/':
             return opr1/opr2;
         case '%':
-            return opr1/opr2;
+            return opr1%opr2;
         case '^':
             return pow(opr1, opr2);
         //relational
